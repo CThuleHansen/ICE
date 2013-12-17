@@ -8,24 +8,30 @@ using ICE.MasterReceivers;
 
 namespace ICE
 {
-    public class CommandReceiver
+    public interface ICommandReceiver
+    {
+        void NewCommand(string[] args);
+    }
+
+    public class CommandReceiver : ICommandReceiver
     {
         Dictionary<string, IMasterCommandReceiver> _commandReceivers = new Dictionary<string, IMasterCommandReceiver>(); 
         
-        public CommandReceiver()
-        { LoadReceivers();}
-
-        private void LoadReceivers()
+        public CommandReceiver(IList<IMasterCommandReceiver> masterCommandReceivers )
         {
-            IMasterCommandReceiver dirCommandReceiver = new DirCommandReceiver();
-            _commandReceivers.Add(dirCommandReceiver.ExecutingCommand, dirCommandReceiver);
+            foreach (var masterCommandReceiver in masterCommandReceivers)
+            {
+                _commandReceivers.Add(masterCommandReceiver.ExecutingCommand, masterCommandReceiver);
+            }
         }
+
+    
 
         public void NewCommand(string[] args)
         {
             try
             {
-                _commandReceivers[args[0]].NewCommand(args);
+                _commandReceivers[args[0]].NewCommand(args.Skip(1).Take(args.Length-1).ToArray());
             }
             catch (System.Collections.Generic.KeyNotFoundException e)
             {

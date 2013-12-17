@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandReceiver.cs" />
+    <Compile Include="FileSystemUtilities.cs" />
     <Compile Include="MasterReceivers\DirCommandReceiver.cs" />
     <Compile Include="MasterReceivers\IMasterCommandReceiver.cs" />
     <Compile Include="Program.cs" />

@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Linq;
 
 namespace ICE.MasterReceivers
 {
@@ -19,7 +21,7 @@ namespace ICE.MasterReceivers
             //Remove dir
             var command = args[0].Substring(ExecutingCommandLength, args[0].Length - ExecutingCommandLength);
 
-            var directories = Directory.GetDirectories(@"C:\", "Dropbox",SearchOption.AllDirectories);
+            var directory = FileSystemUtilities.DirSearch(@"C:\", "Dropbox");
         }
     }
 }
